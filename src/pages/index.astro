@@ -6,13 +6,14 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <main class="p-1 prose prose-xl prose-invert">
+  <main class="p-4 prose md:prose-xl prose-invert">
     <h1 class="">¡Nueva versión del portfolio en marcha!</h1>
-    <article class="flex justify-center md:justify-start flex-wrap relative">
+    <article
+      class="flex flex-col items-start justify-center md:justify-start flex-wrap relative">
       <h2>Se vienen cambios...</h2>
       <svg
         viewBox="0 0 1024 1024"
-        class="size-25 md:size-50 absolute left-60 md:left-100 -top-25"
+        class="size-25 md:size-50 absolute left-60 md:left-100 -top-5 md:-top-25"
         class="icon"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -41,6 +42,11 @@ import Layout from "../layouts/Layout.astro";
             d="M284.7 349.4c-6 0-11.5-3.7-13.6-9.7-2.7-7.5 1.3-15.8 8.8-18.4l69.6-24.5c7.5-2.7 15.8 1.3 18.4 8.8 2.7 7.5-1.3 15.8-8.8 18.4l-69.6 24.5c-1.5 0.7-3.2 0.9-4.8 0.9zM354.4 245.7c-0.6 0-1.2 0-1.9-0.1L262.3 234c-7.9-1-13.5-8.3-12.5-16.2 1-7.9 8.3-13.5 16.2-12.5l90.2 11.6c7.9 1 13.5 8.3 12.5 16.2-0.9 7.3-7.2 12.6-14.3 12.6zM740.6 349.4c-1.6 0-3.2-0.3-4.8-0.8l-69.6-24.5c-7.5-2.7-11.5-10.9-8.8-18.4 2.7-7.5 10.9-11.5 18.4-8.8l69.6 24.5c7.5 2.7 11.5 10.9 8.8 18.4-2.1 5.9-7.7 9.6-13.6 9.6zM670.9 245.7c-7.2 0-13.4-5.3-14.3-12.6-1-7.9 4.6-15.2 12.5-16.2l90.2-11.6c7.9-1 15.2 4.6 16.2 12.5S770.9 233 763 234l-90.2 11.6c-0.6 0.1-1.2 0.1-1.9 0.1z"
             fill="#FFB819"></path></g
         ></svg
+      >
+      <a
+        href="https://old.mmorenilla.com"
+        class="bg-white text-indigo-700 p-3 no-underline w-full text-center font-bold hover:scale-105 hover:shadow-2xl transition-all ease-in-out duration-150 rounded-xl"
+        >Ver anterior portfolio</a
       >
     </article>
   </main>
