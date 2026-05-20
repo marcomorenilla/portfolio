@@ -1,0 +1,42 @@
+---
+import ContentBoldParser from "../components/ContentBoldParser.astro";
+import Layout from "../layouts/Layout.astro";
+import { GraphQLClient } from "graphql-request";
+
+const client = new GraphQLClient(import.meta.env.ASTRO_HYGRAPH_ENDPOINT);
+
+interface Profile {
+  description: {
+    content: string;
+  };
+}
+
+interface ProfileResponse {
+  profiles: Profile[];
+}
+
+const { profiles } = await client.request<ProfileResponse>(`
+ query ProfileDescription { 
+  profiles {
+    description {
+      content
+    }
+  }
+ }
+`);
+
+const profile = profiles[0];
+---
+
+<Layout title="Mi Perfil">
+  <main
+    class="prose prose-invert flex flex-col flex-1 justify-center items-center">
+    {
+      profile ? (
+        <ContentBoldParser content={profile.description.content} />
+      ) : (
+        <p>No se encontró ningún perfil.</p>
+      )
+    }
+  </main>
+</Layout>

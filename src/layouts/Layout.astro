@@ -1,5 +1,7 @@
 ---
+import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
+const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -10,12 +12,44 @@ import "../styles/global.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>Portfolio mmorenilla.dev</title>
+    <title>{title}</title>
   </head>
-  <body>
-    <div id="slot-wrapper" class="bg-linear-to-br from-indigo-700 to-blue-300">
+  <body class="bg-neutral">
+    <div
+      id="small-dots-container"
+      class="relative h-full flex flex-col min-h-screen bg-dots-small bg-size-[20px_20px]">
+      <div
+        id="big-dots-layer"
+        class="absolute inset-0 bg-dots-large bg-size-[20px_20px] pointer-events-none transition-opacity duration-300 opacity-0">
+      </div>
+
+      <Navbar />
       <slot />
+      <footer class="text-center p-5 w-full text-white font-bold mt-auto">
+        © Marco Antonio Morenilla Alonso
+      </footer>
     </div>
+
+    <script>
+      const container = document.getElementById("small-dots-container");
+      const layer = document.getElementById("big-dots-layer");
+
+      container?.addEventListener("mousemove", (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        layer!!.style.opacity = "1";
+
+        const maskString = `radial-gradient(circle 100px at ${x}px ${y}px, black , transparent )`;
+
+        layer!!.style.maskImage = maskString;
+      });
+
+      container?.addEventListener("mouseleave", () => {
+        layer!!.style.opacity = "0";
+      });
+    </script>
   </body>
 </html>
 
@@ -25,14 +59,5 @@ import "../styles/global.css";
     margin: 0;
     width: 100%;
     height: 100%;
-  }
-  #slot-wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: column;
   }
 </style>
