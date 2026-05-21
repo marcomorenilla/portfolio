@@ -1,5 +1,6 @@
 ---
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 const { title } = Astro.props;
 ---
@@ -18,7 +19,7 @@ const { title } = Astro.props;
     class="bg-white transition-colors ease-in-out duration-700 dark:bg-neutral">
     <div
       id="small-dots-container"
-      class="relative h-full flex flex-col min-h-screen bg-dots-small bg-size-[20px_20px]">
+      class="relative h-full flex flex-col min-h-screen dark:bg-dots-small-dark bg-dots-small bg-size-[20px_20px]">
       <div
         id="big-dots-layer"
         class="absolute inset-0 dark:bg-dots-large-dark bg-dots-large bg-size-[20px_20px] pointer-events-none transition-opacity duration-300 opacity-0">
@@ -26,10 +27,7 @@ const { title } = Astro.props;
       <div class="z-10 min-h-screen flex flex-col">
         <Navbar />
         <slot />
-        <footer
-          class="text-center p-5 w-full text-black dark:text-white font-bold mt-auto">
-          © Marco Antonio Morenilla Alonso
-        </footer>
+        <Footer />
       </div>
     </div>
 

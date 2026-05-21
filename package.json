@@ -14,10 +14,13 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.3",
+    "astro-icon": "^1.1.5",
     "graphql-request": "^7.4.0",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
+    "@iconify-json/devicon": "^1.2.62",
+    "@iconify-json/material-symbols-light": "^1.2.73",
     "@tailwindcss/typography": "^0.5.19"
   }
 }

@@ -32,10 +32,19 @@ const { github, linkedin, name } = profiles[0];
 
 <Layout title="Portfolio mmorenilla.dev">
   <main class="h-full p-4 w-full flex justify-center items-center">
-    <section class="prose md:prose-xl dark:prose-invert">
-      <h1 class="text-xl md:text-5xl font-black">
+    <section class="flex flex-col place-items-center gap-4">
+      <h1
+        class="text-4xl text-center md:text-5xl dark:text-white text-transparent bg-linear-to-r from-tertiary-20 via-tertiary to-tertiary-20 bg-clip-text font-black">
         {name}
       </h1>
+      <p
+        class="text-center text-tertiary-20 font-semibold dark:text-white text-lg">
+        Desarrollador Junior con ganas de volar y comerme el mundo
+      </p>
+      <a
+        class="cursor-pointer dark:bg-secondary text-white bg-tertiary-20 rounded-sm p-2 font-semibold hover:scale-110 transition-all duration-300 ease-in-out"
+        >Descargar cv</a
+      >
     </section>
   </main>
 </Layout>

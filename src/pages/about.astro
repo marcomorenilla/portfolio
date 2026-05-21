@@ -2,6 +2,8 @@
 import ContentBoldParser from "../components/ContentBoldParser.astro";
 import Layout from "../layouts/Layout.astro";
 import { GraphQLClient } from "graphql-request";
+import IconCard from "../components/IconCard.astro";
+import { Icon } from "astro-icon/components";
 
 const client = new GraphQLClient(import.meta.env.ASTRO_HYGRAPH_ENDPOINT);
 
@@ -9,6 +11,9 @@ interface Profile {
   description: {
     content: string;
   };
+  skills: {
+    name: string;
+  }[];
 }
 
 interface ProfileResponse {
@@ -21,23 +26,51 @@ const { profiles } = await client.request<ProfileResponse>(`
     description {
       content
     }
+    skills {
+      name
+    }
   }
  }
 `);
 
-const profile = profiles[0];
+const { description, skills } = profiles[0];
+const { content } = description;
 ---
 
 <Layout title="Mi Perfil">
-  <main class="flex flex-1 justify-center items-center">
-    <article class="p-4 prose prose-2xl">
-      {
-        profile ? (
-          <ContentBoldParser content={profile.description.content} />
-        ) : (
-          <p>No se encontró ningún perfil.</p>
-        )
-      }
-    </article>
+  <main class="flex flex-col flex-1 p-2 justify-start gap-10 items-start mb-10">
+    <h1 class="text-5xl dark:text-white text-tertiary-20">
+      Sobre <span class="text-tertiary dark:text-secondary">mi</span>
+    </h1>
+    <section class="flex w-full justify-center items-start gap-10">
+      <article
+        class="p-4 prose bg-white dark:bg-neutral border rounded-sm shadow shadow-tertiary-20 border-tertiary-20">
+        <h2 class="text-tertiary-20 dark:text-white">¿Quién soy?</h2>
+        <ContentBoldParser content={content} />
+      </article>
+
+      <div class="h-full flex flex-col justify-center items-center gap-4">
+        <article
+          class="flex flex-col relative max-h-100 prose overflow-y-auto bg-white dark:bg-neutral border rounded-sm shadow shadow-tertiary-20 border-tertiary-20">
+          <h2
+            class="z-10 sticky p-4 top-0 bg-white dark:bg-neutral text-tertiary-20 dark:text-white m-0">
+            Tecnologías que uso
+          </h2>
+          <section
+            class="grid p-4 grid-cols-2 md:grid-cols-4 gap-4 place-items-center">
+            {
+              skills.map((skill) => {
+                return <IconCard skill={skill} />;
+              })
+            }
+          </section>
+        </article>
+        <div
+          class="w-full p-5 flex gap-2 justify-center items-center text-center border border-tertiary-20 bg-tertiary-20/20 dark:text-white dark:bg-secondary/20 text-tertiary-20 font-bold rounded-sm">
+          <Icon size="30" name="material-symbols-light:rocket-launch" />
+          <h2 class="">Aprendiendo continuamente</h2>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>

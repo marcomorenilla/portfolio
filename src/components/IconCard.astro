@@ -1,0 +1,16 @@
+---
+import { Icon } from "astro-icon/components";
+const { skill } = Astro.props;
+---
+
+<div
+  class="w-full shadow hover:scale-105 transition-all duration-300 ease-in-out shadow-tertiary-20 dark:shadow-secondary aspect-2/3 overflow-hidden flex flex-col justify-center items-center rounded-sm border border-tertiary-20">
+  <div
+    class="flex h-full justify-center border-b border-tertiary-20 items-center dark:bg-radial-[at_50%_50%] from-white to-secondary-20 w-full">
+    <Icon size="50" name={"devicon:" + skill.name} />
+  </div>
+  <p
+    class="h-fit dark:text-white w-full text-center font-semibold text-tertiary-20">
+    {skill.name}
+  </p>
+</div>

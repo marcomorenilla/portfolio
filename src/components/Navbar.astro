@@ -1,22 +1,45 @@
-<nav
-  class="sticky flex font-black items-center text-lg w-full text-black dark:text-white justify-between p-5">
-  <section class="text-3xl"><a href="/">mmorenilla.dev</a></section>
-  <section
-    class="lg:flex gap-6 group hidden *:hover:border-b-2 *:hover:border-secondary *:hover:text-secondary *:hover:scale-110 duration-300 *:transition-all *:p-1 *:duration-150 *:ease-in-out">
-    <a href="/">Inicio</a>
-    <a href="/projects">Proyectos</a>
-    <a href="/about">Sobre mí</a>
-    <a href="/contact">Contacto</a>
-  </section>
-  <section id="dark-mode-toggle" class="hidden cursor-pointer lg:block">
-    Toggle Dark Mode
-  </section>
-</nav>
+---
+import Toggle from "./Toggle.astro";
+---
 
-<script>
-  document
-    .getElementById("dark-mode-toggle")!!
-    .addEventListener("click", () => {
-      document.body.classList.toggle("dark");
+<nav
+  class="sticky z-20 top-0 bg-white dark:bg-neutral flex flex-col gap-5 font-black items-center text-lg w-full text-tertiary-20 dark:text-white p-5">
+  <div class="flex justify-between w-full items-center">
+    <section class="text-3xl"><a href="/">mmorenilla.dev</a></section>
+    <section
+      class="lg:flex gap-6 group hidden *:hover:border-b-2 *:hover:border-secondary *:hover:text-secondary *:hover:scale-110 duration-300 *:transition-all *:p-1 *:duration-150 *:ease-in-out">
+      <a href="/">Inicio</a>
+      <a href="/projects">Proyectos</a>
+      <a href="/about">Sobre mí</a>
+      <a href="/contact">Contacto</a>
+    </section>
+    <section id="dark-mode-toggle" class="cursor-pointer">
+      <Toggle />
+    </section>
+  </div>
+  <div
+    class="lg:hidden w-full flex flex-col place-items-center relative border-t dark:text-tertiary-20 border-tertiary-20 dark:border-white">
+    <div id="responsive-nav" class="w-full hidden">
+      <section
+        class="flex flex-col w-full bg-white rounded-b-xl place-items-center *:border-b *:border-tertiary-20 *:w-full *:p-3">
+        <a href="/">Inicio</a>
+        <a href="/projects">Proyectos</a>
+        <a href="/about">Sobre mí</a>
+        <a href="/contact">Contacto</a>
+      </section>
+    </div>
+    <button id="responsive-menu" class="dark:text-white">↓</button>
+  </div>
+
+  <script>
+    const responsiveMenu = document.getElementById("responsive-menu");
+    const nav = document.getElementById("responsive-nav");
+
+    responsiveMenu!!.addEventListener("click", () => {
+      nav!!.classList.toggle("animate-slide");
+      nav!!.classList.toggle("hidden");
+      responsiveMenu!!.innerHTML =
+        responsiveMenu!!.innerHTML == "↓" ? "↑" : "↓";
     });
-</script>
+  </script>
+</nav>

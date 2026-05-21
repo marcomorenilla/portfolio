@@ -1,0 +1,23 @@
+<section class="flex items-center gap-3 justify-center">
+  <article
+    id="dark-mode-toggle"
+    class="w-15 h-6 px-1 py-2 flex justify-start items-center dark:justify-end rounded-xl bg-tertiary-20 dark:bg-white">
+    <div class="size-4 rounded-full dark:bg-tertiary-20 bg-white"></div>
+  </article>
+  <p id="theme-text" class="animate-opacity">light</p>
+</section>
+<script>
+  const toggle = document.getElementById("dark-mode-toggle");
+  const themeText = document.getElementById("theme-text");
+
+  toggle!!.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    themeText!!.innerText =
+      themeText!!.innerText === "light" ? "️dark" : "light";
+
+    themeText!!.classList.remove("animate-opacity");
+    void themeText!!.offsetWidth;
+    themeText!!.classList.add("animate-opacity");
+  });
+</script>
