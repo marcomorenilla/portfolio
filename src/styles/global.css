@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-display: "Inter", sans-serif;
@@ -12,6 +13,7 @@
   --color-tertiary: #0ea5e9;
   --color-neutral: #0f172a;
   --color-neutral-20: #283044;
+  --color-neutral-95: #f2efff;
   --background-image-dots-small: radial-gradient(
     circle,
     var(--color-neutral-20) 1px,
@@ -19,7 +21,16 @@
   );
   --background-image-dots-large: radial-gradient(
     circle,
-    var(--color-secondary) 1px,
-    transparent 1px
+    var(--color-secondary) 2px,
+    transparent 2px
   );
+  --background-image-dots-large-dark: radial-gradient(
+    circle,
+    var(--color-secondary) 2px,
+    transparent 2px
+  );
+}
+
+.debug {
+  border: solid 1px white;
 }

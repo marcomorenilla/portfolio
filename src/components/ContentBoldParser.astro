@@ -8,7 +8,7 @@ const { content } = Astro.props;
       if (!paragraph.trim()) return null;
 
       return (
-        <p class="text-lg font-bold leading-relaxed ">
+        <p class="font-bold text-black dark:text-white">
           {paragraph.split(" ").map((word: string) => {
             if (word.includes("**")) {
               const cleanWord = word.replace(/\*\*/g, " ");

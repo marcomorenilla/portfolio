@@ -29,14 +29,15 @@ const profile = profiles[0];
 ---
 
 <Layout title="Mi Perfil">
-  <main
-    class="prose prose-invert flex flex-col flex-1 justify-center items-center">
-    {
-      profile ? (
-        <ContentBoldParser content={profile.description.content} />
-      ) : (
-        <p>No se encontró ningún perfil.</p>
-      )
-    }
+  <main class="flex flex-1 justify-center items-center">
+    <article class="p-4 prose prose-2xl">
+      {
+        profile ? (
+          <ContentBoldParser content={profile.description.content} />
+        ) : (
+          <p>No se encontró ningún perfil.</p>
+        )
+      }
+    </article>
   </main>
 </Layout>

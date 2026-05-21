@@ -1,6 +1,6 @@
 <nav
-  class="z-10 sticky flex font-black items-center text-lg w-full text-white justify-between p-5">
-  <section class="text-3xl">mmorenilla.dev</section>
+  class="sticky flex font-black items-center text-lg w-full text-black dark:text-white justify-between p-5">
+  <section class="text-3xl"><a href="/">mmorenilla.dev</a></section>
   <section
     class="lg:flex gap-6 group hidden *:hover:border-b-2 *:hover:border-secondary *:hover:text-secondary *:hover:scale-110 duration-300 *:transition-all *:p-1 *:duration-150 *:ease-in-out">
     <a href="/">Inicio</a>
@@ -8,5 +8,15 @@
     <a href="/about">Sobre mí</a>
     <a href="/contact">Contacto</a>
   </section>
-  <section>Toggle Dark Mode</section>
+  <section id="dark-mode-toggle" class="hidden cursor-pointer lg:block">
+    Toggle Dark Mode
+  </section>
 </nav>
+
+<script>
+  document
+    .getElementById("dark-mode-toggle")!!
+    .addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+</script>
