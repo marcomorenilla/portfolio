@@ -1,0 +1,71 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import { GraphQLClient, gql } from "graphql-request";
+
+type Project = {
+  name: string;
+  slug: string;
+  skills: {
+    name: string;
+    slug: string;
+  }[];
+  description: {
+    content: string;
+  };
+  link: string;
+  poster: {
+    url: string;
+  };
+};
+
+type ProjectsResponse = {
+  projects: Project[];
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const client = new GraphQLClient(import.meta.env.ASTRO_HYGRAPH_ENDPOINT);
+
+  const query = `
+    query Projects {
+      projects {
+        name
+        slug
+        skills {
+          name
+          slug
+        }
+        description {
+          content
+        }
+        link
+        poster {
+          url
+        }
+      }
+    }
+  `;
+
+  const data: ProjectsResponse = await client.request(query);
+
+  return data.projects.map((project) => ({
+    params: {
+      slug: project.slug,
+    },
+    props: {
+      project,
+    },
+  }));
+};
+
+const { project }: any = Astro.props;
+const { name } = project;
+---
+
+<Layout title={project.name}>
+  <section class="container mx-auto py-10">
+    <h1 class="text-4xl font-bold mb-4">
+      {project.name}
+    </h1>
+  </section>
+</Layout>
