@@ -2,6 +2,8 @@
 import type { GetStaticPaths } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import { GraphQLClient, gql } from "graphql-request";
+import { Image } from "astro:assets";
+import IconCard from "../../components/IconCard.astro";
 
 type Project = {
   name: string;
@@ -21,6 +23,11 @@ type Project = {
 
 type ProjectsResponse = {
   projects: Project[];
+};
+
+type Skill = {
+  name: string;
+  slug: string;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -59,13 +66,48 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const { project }: any = Astro.props;
-const { name } = project;
+const { name, poster, skills } = project;
+console.log("poster", poster.url);
 ---
 
-<Layout title={project.name}>
-  <section class="container mx-auto py-10">
-    <h1 class="text-4xl font-bold mb-4">
-      {project.name}
-    </h1>
-  </section>
+<Layout title={name}>
+  <main class="p-4 flex flex-col flex-1 items-stretch justify-start w-full">
+    <article class="flex flex-col gap-10">
+      <div>
+        <h1 class="text-4xl dark:text-white text-neutral-20 font-bold mb-4">
+          {name}
+        </h1>
+        <div
+          class="flex gap-1 *:rounded-xl *:bg-neutral-20 *:text-white *:px-2 *:py-1">
+          {
+            skills.map((skill: Skill) => {
+              return (
+                <span class="text-sm font-semibold dark:bg-secondary">
+                  {skill.name}
+                </span>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <section
+        class="bg-white flex w-fit justify-center items-stretch p-2 dark:bg-neutral rounded-sm">
+        <div class="prose p-4">
+          <h2 class="text-neutral-20 dark:text-white">La historia</h2>
+          <p class="text-neutral-20 font-semibold dark:text-white">
+            {project.description.content}
+          </p>
+        </div>
+        <div class="size-100">
+          <Image
+            src={poster.url}
+            alt={`Imagen proyecto ${name}`}
+            class="rounded-xl hover:shadow-xl hover:scale-102 dark:hover:shadow-secondary hover:shadow-neutral-20 transition-all duration-300 ease-in-out"
+            inferSize
+          />
+        </div>
+      </section>
+    </article>
+  </main>
 </Layout>
