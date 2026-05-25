@@ -3,7 +3,7 @@ import type { GetStaticPaths } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import { GraphQLClient, gql } from "graphql-request";
 import { Image } from "astro:assets";
-import IconCard from "../../components/IconCard.astro";
+import { marked } from "marked";
 
 type Project = {
   name: string;
@@ -66,15 +66,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const { project }: any = Astro.props;
-const { name, poster, skills } = project;
-console.log("poster", poster.url);
+const { name, poster, skills, description } = project;
+
+const { content } = description;
+
+const html = marked.parse(content);
 ---
 
 <Layout title={name}>
   <main class="p-4 flex flex-col flex-1 items-stretch justify-start w-full">
     <article class="flex flex-col gap-10">
       <div>
-        <h1 class="text-4xl dark:text-white text-neutral-20 font-bold mb-4">
+        <h1
+          transition:name="transition-title"
+          class="text-4xl dark:text-white text-neutral-20 font-bold mb-4">
           {name}
         </h1>
         <div
@@ -92,21 +97,20 @@ console.log("poster", poster.url);
       </div>
 
       <section
-        class="bg-white flex w-fit justify-center items-stretch p-2 dark:bg-neutral rounded-sm">
-        <div class="prose p-4">
-          <h2 class="text-neutral-20 dark:text-white">La historia</h2>
-          <p class="text-neutral-20 font-semibold dark:text-white">
-            {project.description.content}
-          </p>
-        </div>
-        <div class="size-100">
+        class="flex flex-col w-full justify-center items-center p-2 rounded-sm">
+        <article
+          class="w-3/5 flex-1 bg-white dark:bg-neutral flex flex-col gap-5 rounded-sm size-100">
           <Image
             src={poster.url}
             alt={`Imagen proyecto ${name}`}
-            class="rounded-xl hover:shadow-xl hover:scale-102 dark:hover:shadow-secondary hover:shadow-neutral-20 transition-all duration-300 ease-in-out"
+            class="rounded-sm hover:shadow-xl hover:scale-102 dark:hover:shadow-secondary hover:shadow-neutral-20 transition-all duration-300 ease-in-out"
             inferSize
           />
-        </div>
+          <div
+            set:html={html}
+            class="p-5 prose text-tertiary-20 dark:text-white prose-strong:text-tertiary dark:prose-strong:text-secondary"
+          />
+        </article>
       </section>
     </article>
   </main>

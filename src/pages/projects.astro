@@ -2,8 +2,8 @@
 import { Icon } from "astro-icon/components";
 import { GraphQLClient } from "graphql-request";
 import Layout from "../layouts/Layout.astro";
-import ContentBoldParser from "../components/ContentBoldParser.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import { marked } from "marked";
 
 const client = new GraphQLClient(import.meta.env.ASTRO_HYGRAPH_ENDPOINT);
 
@@ -50,6 +50,7 @@ const { pageDescriptions }: PageDescriptionResponse = await client.request(`
 `);
 
 const { subtitle } = pageDescriptions[0];
+const html = marked.parse(subtitle);
 ---
 
 <Layout title="Proyectos">
@@ -69,9 +70,10 @@ const { subtitle } = pageDescriptions[0];
           />
           <h2 class="text-tertiary font-bold">Info</h2>
         </div>
-        <div class="prose">
-          <ContentBoldParser content={subtitle} />
-        </div>
+        <div
+          set:html={html}
+          class="prose font-semibold prose-strong:text-tertiary dark:prose-strong:text-secondary"
+        />
       </article>
     </section>
     <section class="flex justify-center items-center flex-wrap">

@@ -26,7 +26,11 @@ type Skill = {
     }
   </div>
   <div class="prose p-2">
-    <h2 class="text-tertiary-20 dark:text-white">{name}</h2>
+    <h2
+      transition:name="transition-title"
+      class="text-tertiary-20 dark:text-white">
+      {name}
+    </h2>
   </div>
   <div class="p-2 flex items-center gap-2 justify-start">
     <a

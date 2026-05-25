@@ -28,7 +28,9 @@ const { title } = Astro.props;
       </div>
       <div class="z-10 flex grow flex-col">
         <Navbar />
-        <div class="flex flex-1 min-h-0 grow flex-col">
+        <div
+          class="flex flex-1 min-h-0 grow flex-col"
+          transition:animate="slide">
           <slot />
         </div>
         <Footer class="shrink-0" />
