@@ -29,6 +29,9 @@ importers:
       tailwindcss:
         specifier: ^4.3.0
         version: 4.3.0
+      vanilla-tilt:
+        specifier: ^1.8.1
+        version: 1.8.1
     devDependencies:
       '@iconify-json/devicon':
         specifier: ^1.2.62
@@ -1775,6 +1778,9 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  vanilla-tilt@1.8.1:
+    resolution: {integrity: sha512-hPB1XUsnh+SIeVSW2beb5RnuFxz4ZNgxjGD78o52F49gS4xaoLeEMh9qrQnJrnEn/vjjBI7IlxrrXmz4tGV0Kw==}
 
   vfile-location@5.0.3:
     resolution: {integrity: sha512-5yXvWDEgqeiYiBe1lbxYF7UMAIm/IcopxMHrMQDq3nvKcjPKIhZklUKL+AE7J7uApI4kwe2snsK+eI6UTj9EHg==}
@@ -3816,6 +3822,8 @@ snapshots:
       ufo: 1.6.4
 
   util-deprecate@1.0.2: {}
+
+  vanilla-tilt@1.8.1: {}
 
   vfile-location@5.0.3:
     dependencies:

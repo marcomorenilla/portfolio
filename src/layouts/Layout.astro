@@ -29,8 +29,8 @@ const { title } = Astro.props;
       <div class="z-10 flex grow flex-col">
         <Navbar />
         <div
-          class="flex flex-1 min-h-0 grow flex-col"
-          transition:animate="slide">
+          transition:animate="slide"
+          class="flex flex-1 min-h-0 grow flex-col">
           <slot />
         </div>
         <Footer class="shrink-0" />
@@ -38,25 +38,28 @@ const { title } = Astro.props;
     </div>
 
     <script>
-      const container = document.getElementById("small-dots-container");
-      const layer = document.getElementById("big-dots-layer");
+      document.addEventListener("astro:page-load", () => {
+        const container = document.getElementById("small-dots-container");
+        const layer = document.getElementById("big-dots-layer");
 
-      container?.addEventListener("mousemove", (e) => {
-        const rect = container.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        container?.addEventListener("mousemove", (e) => {
+          const rect = container.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
 
-        layer!!.style.opacity = "1";
+          layer!!.style.opacity = "1";
 
-        const maskString = `radial-gradient(circle 100px at ${x}px ${y}px, black , transparent )`;
+          const maskString = `radial-gradient(circle 100px at ${x}px ${y}px, black , transparent )`;
 
-        layer!!.style.maskImage = maskString;
-      });
+          layer!!.style.maskImage = maskString;
+        });
 
-      container?.addEventListener("mouseleave", () => {
-        layer!!.style.opacity = "0";
+        container?.addEventListener("mouseleave", () => {
+          layer!!.style.opacity = "0";
+        });
       });
     </script>
+
   </body>
 </html>
 

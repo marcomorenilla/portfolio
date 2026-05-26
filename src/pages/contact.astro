@@ -1,0 +1,93 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contacto">
+  <main
+    class="flex flex-col flex-1 items-stretch justify-start w-full p-4 gap-5">
+    <h1
+      class="text-5xl dark:text-white text-transparent bg-linear-to-r from-tertiary-20 via-tertiary via-25% to-tertiary-20 bg-clip-text font-black shrink-0">
+      Mándame un <span class="text-tertiary dark:text-secondary"> mensaje</span>
+    </h1>
+    <div class="w-full p-10 flex items-center justify-center flex-1">
+      <section
+        class="w-fit py-4 bg-white rounded-sm dark:bg-neutral border border-tertiary-20 dark:border-secondary shadow-xl shadow-tertiary-20 dark:shadow-secondary">
+        <form
+          id="contact-form"
+          class="flex p-5 flex-col gap-4 text-tertiary-20 dark:text-white">
+          <div class="flex flex-col gap-2">
+            <label for="name">Nombre:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="border-b p-2 border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="border-b p-2 border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="mensaje">Mensaje:</label>
+            <textarea
+              rows="5"
+              cols="50"
+              name="mensaje"
+              id="mensaje"
+              class="border-b p-2 border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
+            ></textarea>
+          </div>
+          <div class="flex items-center justify-center gap-2 p-2">
+            <button
+              type="submit"
+              class="bg-tertiary-20 text-white font-semibold rounded-sm p-2 cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
+              >Enviar</button
+            >
+            <button
+              type="reset"
+              class="bg-tertiary-20 text-white font-semibold rounded-sm p-2 cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
+              >Resetear</button
+            >
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    form!!.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+
+      const payload = {
+        name: String(data.get("name")).trim(),
+        email: String(data.get("email")).trim(),
+        mensaje: String(data.get("mensaje")).trim(),
+      };
+
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: JSON.stringify(payload),
+      })
+        .then(() => {
+          form!!.reset();
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          form!!.reset();
+        });
+    });
+  });
+</script>

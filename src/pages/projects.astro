@@ -72,7 +72,7 @@ const html = marked.parse(subtitle);
         </div>
         <div
           set:html={html}
-          class="prose font-semibold prose-strong:text-tertiary dark:prose-strong:text-secondary"
+          class="prose font-semibold prose-strong:text-tertiary dark:prose-strong:text-secondary dark:prose-invert"
         />
       </article>
     </section>
@@ -80,7 +80,7 @@ const html = marked.parse(subtitle);
       <h2 class="text-xl font-bold text-tertiary-20">Futuro buscador</h2>
     </section>
     <section
-      class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full place-items-center min-h-0">
+      class="p-20 grid grid-cols-2 md:grid-cols-4 gap-10 w-full place-items-center min-h-0">
       {
         projects.map((project) => {
           return <ProjectCard project={project} />;

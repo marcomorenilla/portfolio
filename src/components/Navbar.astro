@@ -32,14 +32,16 @@ import Toggle from "./Toggle.astro";
   </div>
 
   <script>
-    const responsiveMenu = document.getElementById("responsive-menu");
-    const nav = document.getElementById("responsive-nav");
+    document.addEventListener("astro:page-load", () => {
+      const responsiveMenu = document.getElementById("responsive-menu");
+      const nav = document.getElementById("responsive-nav");
 
-    responsiveMenu!!.addEventListener("click", () => {
-      nav!!.classList.toggle("animate-slide");
-      nav!!.classList.toggle("hidden");
-      responsiveMenu!!.innerHTML =
-        responsiveMenu!!.innerHTML == "↓" ? "↑" : "↓";
+      responsiveMenu!!.addEventListener("click", () => {
+        nav!!.classList.toggle("animate-slide");
+        nav!!.classList.toggle("hidden");
+        responsiveMenu!!.innerHTML =
+          responsiveMenu!!.innerHTML == "↓" ? "↑" : "↓";
+      });
     });
   </script>
 </nav>
