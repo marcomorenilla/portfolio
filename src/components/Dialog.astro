@@ -1,0 +1,67 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<dialog
+  class="animate-opacity w-full h-full max-h-none max-w-none min-h-screen bg-transparent">
+  <section class="w-full h-full flex justify-center items-center">
+    <article class="bg-white rounded-sm flex justify-center items-center gap-2">
+      <div
+        class="flex justify-center items-center gap-2 bg-green-500/50 border-2 p-5 rounded-sm text-green-700 border-green-700 container">
+        <Icon class="size-8 icon-success" name="mdi:sticker-emoji" />
+        <Icon
+          class="size-8 icon-error hidden"
+          name="mdi:sticker-remove-outline"
+        />
+        <h2 class="font-bold">Mensaje enviado con éxito</h2>
+      </div>
+    </article>
+  </section>
+</dialog>
+
+<script>
+  import { $state } from "../store/dialog";
+
+  const dialog = document.querySelector("dialog");
+  const message = document.querySelector("h2");
+  const container = document.querySelector(".container");
+  const iconSuccess = document.querySelector(".icon-success");
+  const iconError = document.querySelector(".icon-error");
+  $state.subscribe((state) => {
+    console.log(state);
+    if (state.isOpen) {
+      dialog!!.showModal();
+      if (state.type === "success") {
+        container!!.classList.remove(
+          "bg-red-500/50",
+          "text-red-700",
+          "border-red-700",
+        );
+        container!!.classList.add(
+          "bg-green-700/50",
+          "text-green-700",
+          "border-green-700",
+        );
+        iconError!!.classList.add("hidden");
+        iconSuccess!!.classList.remove("hidden");
+      } else {
+        container!!.classList.remove(
+          "bg-green-500/50",
+          "text-green-700",
+          "border-green-700",
+        );
+        container!!.classList.add(
+          "bg-red-700/50",
+          "text-red-700",
+          "border-red-700",
+        );
+        iconError!!.classList.remove("hidden");
+        iconSuccess!!.classList.add("hidden");
+      }
+
+      message!!.textContent = state.message;
+    } else {
+      dialog!!.close();
+    }
+  });
+</script>
