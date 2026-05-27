@@ -22,6 +22,7 @@ import Layout from "../layouts/Layout.astro";
               name="name"
               id="name"
               class="border-b p-2 border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
+              required
             />
           </div>
           <div class="flex flex-col gap-2">
@@ -31,15 +32,16 @@ import Layout from "../layouts/Layout.astro";
               name="email"
               id="email"
               class="border-b p-2 border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
+              required
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label for="mensaje">Mensaje:</label>
+            <label for="message">Mensaje:</label>
             <textarea
               rows="5"
               cols="50"
-              name="mensaje"
-              id="mensaje"
+              name="message"
+              id="message"
               class="border-b p-2 border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
             ></textarea>
           </div>
@@ -62,32 +64,40 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const form = document.getElementById("contact-form") as HTMLFormElement;
-    form!!.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
+  const TELEGRAM_URL = import.meta.env.PUBLIC_LAMBDA_URL;
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  form!!.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
 
-      const payload = {
-        name: String(data.get("name")).trim(),
-        email: String(data.get("email")).trim(),
-        mensaje: String(data.get("mensaje")).trim(),
-      };
+    const details = {
+      name: String(data.get("name")).trim(),
+      email: String(data.get("email")).trim(),
+      message: String(data.get("message")).trim(),
+    };
 
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: JSON.stringify(payload),
+    const telegramMessage = `Hola, tienes una respuesta nueva al formulario!\n\n*Email*: ${details.email}\n\n*Nombre*: ${details.name}\n\n*Mensaje*: ${details.message}`;
+
+    fetch(TELEGRAM_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: telegramMessage }),
+    })
+      .then((res) => {
+        form!!.reset();
+        return res.json();
       })
-        .then(() => {
-          form!!.reset();
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          form!!.reset();
-        });
-    });
+      .then((data) => {
+        console.log(data);
+        if ((data.status = "success")) alert("Mensaje enviado correctamente!");
+      })
+      .catch((error) => {
+        alert(
+          "Hubo un problema en el envio, puedes avisarme en mmorenilla.dev@gmail.com ",
+        );
+      })
+      .finally(() => {
+        form!!.reset();
+      });
   });
 </script>

@@ -7,19 +7,35 @@
   <p id="theme-text" class="animate-opacity">tema claro</p>
 </section>
 <script>
-
   document.addEventListener("astro:page-load", () => {
-  const toggle = document.getElementById("dark-mode-toggle");
-  const themeText = document.getElementById("theme-text");
+    const toggle = document.getElementById("dark-mode-toggle");
+    const themeText = document.getElementById("theme-text");
 
-  toggle!!.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
+    const preferredTheme = sessionStorage.getItem("theme") || "light";
+    console.log("tema preferido", preferredTheme);
 
-    themeText!!.innerText =
-      themeText!!.innerText === "tema claro" ? "️tema oscuro" : "tema claro";
+    if (preferredTheme === "dark") {
+      document.body.classList.add("dark");
+      themeText!!.innerText = "tema oscuro";
+    } else {
+      document.body.classList.remove("dark");
+      themeText!!.innerText = "tema claro";
+    }
 
-    themeText!!.classList.remove("animate-opacity");
-    void themeText!!.offsetWidth;
-    themeText!!.classList.add("animate-opacity");
-  });})
+    toggle!!.addEventListener("click", () => {
+      if (preferredTheme === "dark") {
+        document.body.classList.remove("dark");
+        themeText!!.innerText = "tema claro";
+        sessionStorage.setItem("theme", "light");
+      } else {
+        document.body.classList.add("dark");
+        themeText!!.innerText = "tema oscuro";
+        sessionStorage.setItem("theme", "dark");
+      }
+
+      themeText!!.classList.remove("animate-opacity");
+      void themeText!!.offsetWidth;
+      themeText!!.classList.add("animate-opacity");
+    });
+  });
 </script>

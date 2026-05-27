@@ -12,10 +12,10 @@ type Skill = {
 ---
 
 <div
-  class="w-full h-full hover:shadow-xl hover:scale-110 hover:shadow-tertiary-20 transition-all duration-300 ease-in-out dark:hover:shadow-secondary tilt transform-3d"
-  data-tilt>
+  class="w-full h-full p-10 hover:scale-110 z-50 group transition-all duration-300 ease-in-out transform-3d [&_h2]:group-hover:scale-110 [&_h2]:group-hover:translate-x-5 [&_h2]:transition-all [&_h2]:duration-300 [&_h2]:ease-in-out">
   <article
-    class="flex w-full h-75 flex-col border rounded-sm shadow shadow-tertiary-20 border-tertiary-20 bg-white dark:bg-neutral justify-between">
+    class="flex w-full h-75 flex-col border rounded-sm shadow shadow-tertiary-20 border-tertiary-20 bg-white dark:bg-neutral justify-between tilt group-hover:shadow-xl group-hover:shadow-tertiary-20 dark:group-hover:shadow-secondary"
+    data-tilt>
     <div class="flex justify-center p-4 items-center gap-2">
       {
         skills.map((skill: Skill, index: number) =>
@@ -71,7 +71,6 @@ type Skill = {
     VanillaTilt.init(elements, {
       max: 25,
       speed: 400,
-      glare: true,
     });
   }
 
