@@ -64,6 +64,16 @@
   }
 }
 
-.debug {
-  border: solid 1px white;
+@layer components {
+  .success {
+    border: solid 1px green;
+    color: green;
+    border-radius: 10px;
+  }
+
+  .failure {
+    border: solid 1px red;
+    color: red;
+    border-radius: 10px;
+  }
 }

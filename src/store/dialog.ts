@@ -18,6 +18,6 @@ export function $closeDialog() {
   $state.set({ isOpen: false, type: "idle", message: "" });
 }
 
-export function $openErrorDIalog(message: string) {
+export function $openErrorDialog(message: string) {
   $state.set({ isOpen: true, type: "error", message: message });
 }

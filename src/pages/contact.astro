@@ -72,7 +72,7 @@ import Layout from "../layouts/Layout.astro";
   import {
     $openSuccessDialog,
     $closeDialog,
-    $openErrorDIalog,
+    $openErrorDialog,
   } from "../store/dialog";
   form!!.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -101,16 +101,16 @@ import Layout from "../layouts/Layout.astro";
           $openSuccessDialog();
           setTimeout(() => {
             $closeDialog();
-          }, 5000);
+          }, 3000);
         }
       })
       .catch((error) => {
         const errorMsg = `Hubo un problema con el envío: ${error}`;
         console.log(errorMsg);
-        $openErrorDIalog(errorMsg);
+        $openErrorDialog(errorMsg);
         setTimeout(() => {
           $closeDialog();
-        }, 5000);
+        }, 3000);
       })
       .finally(() => {
         form!!.reset();
