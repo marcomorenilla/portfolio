@@ -1,0 +1,118 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import { GraphQLClient, gql } from "graphql-request";
+import { Image } from "astro:assets";
+import { marked } from "marked";
+
+type Project = {
+  name: string;
+  slug: string;
+  skills: {
+    name: string;
+    slug: string;
+  }[];
+  description: {
+    content: string;
+  };
+  link: string;
+  poster: {
+    url: string;
+  };
+};
+
+type ProjectsResponse = {
+  projects: Project[];
+};
+
+type Skill = {
+  name: string;
+  slug: string;
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const client = new GraphQLClient(import.meta.env.ASTRO_HYGRAPH_ENDPOINT);
+
+  const query = `
+    query Projects {
+      projects {
+        name
+        slug
+        skills {
+          name
+          slug
+        }
+        description {
+          content
+        }
+        link
+        poster {
+          url
+        }
+      }
+    }
+  `;
+
+  const data: ProjectsResponse = await client.request(query);
+
+  return data.projects.map((project) => ({
+    params: {
+      slug: project.slug,
+    },
+    props: {
+      project,
+    },
+  }));
+};
+
+const { project }: any = Astro.props;
+const { name, poster, skills, description } = project;
+
+const { content } = description;
+
+const html = marked.parse(content);
+---
+
+<Layout title={name}>
+  <main class="p-4 flex flex-col flex-1 items-stretch justify-start w-full">
+    <article class="flex flex-col gap-10">
+      <div>
+        <h1 class="text-4xl dark:text-white text-neutral-20 font-bold mb-4">
+          {name}
+        </h1>
+        <div
+          class="flex gap-1 *:rounded-xl *:bg-neutral-20 *:text-white *:px-2 *:py-1">
+          {
+            skills.map((skill: Skill) => {
+              return (
+                <span class="text-sm font-semibold dark:bg-secondary">
+                  {skill.name}
+                </span>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <section
+        class="flex flex-col w-full justify-center items-center rounded-sm gap-5">
+        <article
+          class="w-90 h-auto md:w-4/5 border border-tertiary-20 dark:border-secondary shadow-xl hover:shadow-2xl shadow-tertiary-20 dark:shadow-secondary flex flex-col rounded-sm bg-white dark:bg-neutral">
+          <div class="">
+            <Image
+              src={poster.url}
+              alt={`Imagen proyecto ${name}`}
+              class="z-10 object-cover h-100 rounded-t-sm"
+              inferSize
+            />
+          </div>
+
+          <div
+            set:html={html}
+            class="w-fit -mt-6 rounded-t-xl z-20 bg-white dark:bg-neutral prose-lg p-6 text-tertiary-20 dark:text-white prose-strong:text-tertiary dark:prose-strong:text-secondary"
+          />
+        </article>
+      </section>
+    </article>
+  </main>
+</Layout>

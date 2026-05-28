@@ -1,2 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", sans-serif;
+
+  --color-primary: #6366f1;
+  --color-secondary: #a855f7;
+  --color-tertiary: #0ea5e9;
+  --color-neutral: #0f172a;
+  --color-neutral-20: #283044;
+  --color-neutral-95: #f2efff;
+  --color-tertiary-80: #89ceff;
+  --color-tertiary-20: #00344d;
+  --color-secondary-20: #490080;
+  --background-image-dots-small: radial-gradient(
+    circle,
+    var(--color-tertiary-80) 1px,
+    transparent 1px
+  );
+  --background-image-dots-small-dark: radial-gradient(
+    circle,
+    var(--color-neutral-20) 1px,
+    transparent 1px
+  );
+  --background-image-dots-large: radial-gradient(
+    circle,
+    var(--color-secondary) 2px,
+    transparent 2px
+  );
+  --background-image-dots-large-dark: radial-gradient(
+    circle,
+    var(--color-secondary) 2px,
+    transparent 2px
+  );
+
+  --animate-opacity: opacity 0.5s ease-in-out;
+  --animate-slide: slide 0.5s ease-in-out;
+
+  @keyframes opacity {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide {
+    0% {
+      opacity: 0;
+      transform: translateY(-10%);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
+.debug {
+  border: solid 1px white;
+}

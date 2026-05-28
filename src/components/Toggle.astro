@@ -1,0 +1,42 @@
+<section class="flex items-center gap-3 justify-center">
+  <article
+    id="theme-mode-toggle"
+    class="w-15 h-6 px-1 py-2 flex justify-start items-center dark:justify-end rounded-xl bg-tertiary-20 dark:bg-white">
+    <div class="size-4 rounded-full dark:bg-tertiary-20 bg-white"></div>
+  </article>
+  <p id="theme-text" class="animate-opacity">tema claro</p>
+</section>
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const toggle = document.getElementById("theme-mode-toggle");
+    const themeText = document.getElementById("theme-text");
+
+    let preferredTheme = sessionStorage.getItem("theme") || "light";
+
+    if (preferredTheme === "dark") {
+      document.body.classList.add("dark");
+      themeText!!.innerText = "tema oscuro";
+    } else {
+      document.body.classList.remove("dark");
+      themeText!!.innerText = "tema claro";
+    }
+
+    toggle!!.addEventListener("click", () => {
+      if (preferredTheme === "dark") {
+        document.body.classList.remove("dark");
+        themeText!!.innerText = "tema claro";
+        sessionStorage.setItem("theme", "light");
+        preferredTheme = "light";
+      } else {
+        document.body.classList.add("dark");
+        themeText!!.innerText = "tema oscuro";
+        sessionStorage.setItem("theme", "dark");
+        preferredTheme = "dark";
+      }
+
+      themeText!!.classList.remove("animate-opacity");
+      void themeText!!.offsetWidth;
+      themeText!!.classList.add("animate-opacity");
+    });
+  });
+</script>

@@ -1,0 +1,100 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { GraphQLClient } from "graphql-request";
+import IconCard from "../components/IconCard.astro";
+import { Icon } from "astro-icon/components";
+import { marked } from "marked";
+
+const client = new GraphQLClient(import.meta.env.ASTRO_HYGRAPH_ENDPOINT);
+
+type ProfilesAbout = {
+  profiles: {
+    description: {
+      content: string;
+    };
+    skills: {
+      name: string;
+      slug: string;
+    }[];
+    aboutSentence: string;
+  }[];
+};
+
+const { profiles }: ProfilesAbout = await client.request(`
+ query ProfileDescription { 
+  profiles {
+    description {
+      content
+    }
+    skills {
+      name
+      slug
+    }
+    aboutSentence
+  }
+ }
+`);
+
+const { description, skills, aboutSentence } = profiles[0];
+const { content } = description;
+
+const html = marked.parse(content);
+---
+
+<Layout title="Mi Perfil">
+  <main
+    class="flex flex-1 flex-col p-4 justify-start gap-10 items-stretch mb-10 w-full">
+    <h1
+      class="text-5xl dark:text-white text-transparent bg-linear-to-r from-tertiary-20 via-tertiary via-15% to-tertiary-20 bg-clip-text font-black shrink-0">
+      Sobre <span class="text-tertiary dark:text-secondary">mi</span>
+    </h1>
+
+    <div class="flex justify-center">
+      <section
+        class="grid grid-cols-1 md:grid-cols-2 gap-10 w-fit place-items-center min-h-0">
+        <article
+          class="p-4 bg-white dark:bg-neutral border rounded-sm shadow shadow-tertiary-20 border-tertiary-20 w-full h-full">
+          <div class="prose">
+            <h2 class="text-tertiary-20 dark:text-white m-0 pb-4">
+              ¿Quién soy?
+            </h2>
+          </div>
+          <div
+            set:html={html}
+            class="text-tertiary-20 font-semibold dark:text-white prose prose-strong:text-tertiary dark:prose-strong:text-secondary"
+          />
+        </article>
+
+        <div
+          class="flex flex-col gap-4 min-h-0 h-full justify-center items-center w-full">
+          <article
+            class="flex w-full max-h-150 flex-col flex-1 bg-white dark:bg-neutral border rounded-sm shadow shadow-tertiary-20 border-tertiary-20">
+            <div class="prose">
+              <h2
+                class="z-10 sticky p-4 top-0 bg-white dark:bg-neutral text-tertiary-20 dark:text-white m-0 border-b border-neutral-100 dark:border-neutral-800 shrink-0">
+                Tecnologías que utilizo
+              </h2>
+            </div>
+
+            <div class="overflow-y-auto not-prose p-4 flex-1 min-h-0">
+              <section
+                class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 place-items-center">
+                {
+                  skills.map((skill) => {
+                    return <IconCard skill={skill} />;
+                  })
+                }
+              </section>
+            </div>
+          </article>
+
+          <div
+            class="p-5 w-full flex gap-2 justify-center items-center text-center border border-tertiary-20 bg-tertiary-20/20 dark:text-white dark:bg-secondary/20 text-tertiary-20 font-bold rounded-sm shrink-0">
+            <Icon size="30" name="material-symbols-light:rocket-launch" />
+            <h2 class="text-sm md:text-base">{aboutSentence}</h2>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>

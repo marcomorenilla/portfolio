@@ -1,0 +1,119 @@
+---
+import Dialog from "../components/Dialog.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contacto">
+  <main
+    class="flex p-10 flex-col max-w-screen flex-1 items-stretch justify-start gap-5">
+    <div class="flex items-center justify-center flex-1">
+      <section
+        class="p-4 w-120 bg-white rounded-sm dark:bg-neutral border border-tertiary-20 dark:border-secondary shadow-xl shadow-tertiary-20 dark:shadow-secondary">
+        <form
+          id="contact-form"
+          class="flex [&_label]:font-semibold flex-col gap-4 text-tertiary-20 dark:text-white">
+          <div class="prose text-center">
+            <h1
+              class="text-5xl dark:text-white text-transparent bg-linear-to-r from-tertiary-20 to-tertiary to-80% bg-clip-text font-black shrink-0">
+              Contacto
+            </h1>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="name">Nombre:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="p-2 border-b border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="p-2 border-b border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="message">Mensaje:</label>
+            <textarea
+              name="message"
+              rows="6"
+              id="message"
+              class="p-2 border-b border-tertiary-20 rounded-sm dark:border-secondary focus:border-2 focus:border-tertiary-20 dark:focus:border-secondary focus:outline-hidden transition-all duration-150 ease-in-out"
+            ></textarea>
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <button
+              type="submit"
+              class="p-2 bg-tertiary-20 text-white font-semibold rounded-sm cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
+              >Enviar</button
+            >
+            <button
+              type="reset"
+              class="p-2 bg-tertiary-20 text-white font-semibold rounded-sm cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
+              >Resetear</button
+            >
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+</Layout>
+<Dialog />
+
+<script>
+  const TELEGRAM_URL = import.meta.env.PUBLIC_LAMBDA_URL;
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  import {
+    $openSuccessDialog,
+    $closeDialog,
+    $openErrorDIalog,
+  } from "../store/dialog";
+  form!!.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    const details = {
+      name: String(data.get("name")).trim(),
+      email: String(data.get("email")).trim(),
+      message: String(data.get("message")).trim(),
+    };
+
+    const telegramMessage = `Hola, tienes una respuesta nueva al formulario!\n\n*Email*: ${details.email}\n\n*Nombre*: ${details.name}\n\n*Mensaje*: ${details.message}`;
+
+    fetch(TELEGRAM_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: telegramMessage }),
+    })
+      .then((res) => {
+        form!!.reset();
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if ((data.status = "success")) {
+          $openSuccessDialog();
+          setTimeout(() => {
+            $closeDialog();
+          }, 5000);
+        }
+      })
+      .catch((error) => {
+        const errorMsg = `Hubo un problema con el envío: ${error}`;
+        console.log(errorMsg);
+        $openErrorDIalog(errorMsg);
+        setTimeout(() => {
+          $closeDialog();
+        }, 5000);
+      })
+      .finally(() => {
+        form!!.reset();
+      });
+  });
+</script>

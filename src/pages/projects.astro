@@ -1,0 +1,93 @@
+---
+import { Icon } from "astro-icon/components";
+import { GraphQLClient } from "graphql-request";
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { marked } from "marked";
+
+const client = new GraphQLClient(import.meta.env.ASTRO_HYGRAPH_ENDPOINT);
+
+type ProjectsResponse = {
+  projects: {
+    name: string;
+    slug: string;
+    skills: {
+      name: string;
+      slug: string;
+    }[];
+    link: string;
+  }[];
+};
+
+type PageDescriptionResponse = {
+  pageDescriptions: {
+    name: string;
+    subtitle: string;
+  }[];
+};
+
+const { projects }: ProjectsResponse = await client.request(`
+ query Projects {
+    projects {
+    name
+    slug
+    skills {
+      name
+      slug
+    }
+    link
+  }
+}
+`);
+
+const { pageDescriptions }: PageDescriptionResponse = await client.request(`
+ query PageDescription {
+  pageDescriptions {
+    name
+    subtitle
+  }
+}
+`);
+
+const { subtitle } = pageDescriptions[0];
+const html = marked.parse(subtitle);
+---
+
+<Layout title="Proyectos">
+  <main
+    class="flex flex-col flex-1 items-stretch justify-start w-full p-4 gap-5">
+    <h1
+      class="text-5xl dark:text-white text-transparent bg-linear-to-r from-tertiary-20 via-tertiary via-25% to-tertiary-20 bg-clip-text font-black shrink-0">
+      Sobre mis<span class="text-tertiary dark:text-secondary"> proyectos</span>
+    </h1>
+    <section>
+      <article
+        class="bg-white dark:bg-neutral p-2 rounded-sm border-l-4 w-fit border-tertiary">
+        <div class="flex not-prose items-center gap-3">
+          <Icon
+            class="text-tertiary size-7"
+            name="material-symbols-light:info"
+          />
+          <h2 class="text-tertiary font-bold">Info</h2>
+        </div>
+        <div
+          set:html={html}
+          class="prose font-semibold prose-strong:text-tertiary dark:prose-strong:text-secondary dark:prose-invert"
+        />
+      </article>
+    </section>
+    <section class="flex justify-center items-center flex-wrap">
+      <h2 class="text-xl font-bold text-tertiary-20 dark:text-secondary">
+        Futuro buscador
+      </h2>
+    </section>
+    <section
+      class={`p-2 flex flex-wrap gap-10 ${projects.length > 6 ? "justify-start" : "justify-center"} items-center min-h-0`}>
+      {
+        projects.map((project) => {
+          return <ProjectCard project={project} />;
+        })
+      }
+    </section>
+  </main>
+</Layout>
