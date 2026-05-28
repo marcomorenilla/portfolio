@@ -12,7 +12,6 @@
     const themeText = document.getElementById("theme-text");
 
     let preferredTheme = sessionStorage.getItem("theme") || "light";
-    console.log("tema preferido", preferredTheme);
 
     if (preferredTheme === "dark") {
       document.body.classList.add("dark");

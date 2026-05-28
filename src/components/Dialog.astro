@@ -4,7 +4,7 @@ import { Icon } from "astro-icon/components";
 
 <dialog
   class="animate-opacity w-full h-full max-h-none max-w-none min-h-screen bg-transparent">
-  <section class="w-full h-full flex justify-center items-center">
+  <section class="w-full h-full flex justify-center items-center px-2">
     <article class="bg-white rounded-sm flex justify-center items-center gap-2">
       <div
         class="flex justify-center items-center gap-2 bg-green-500/50 border-2 p-5 rounded-sm text-green-700 border-green-700 container">
@@ -28,7 +28,6 @@ import { Icon } from "astro-icon/components";
   const iconSuccess = document.querySelector(".icon-success");
   const iconError = document.querySelector(".icon-error");
   $state.subscribe((state) => {
-    console.log(state);
     if (state.isOpen) {
       dialog!!.showModal();
       if (state.type === "success") {

@@ -77,8 +77,7 @@ const html = marked.parse(content);
   <main class="p-4 flex flex-col flex-1 items-stretch justify-start w-full">
     <article class="flex flex-col gap-10">
       <div>
-        <h1
-          class="text-4xl dark:text-white text-neutral-20 font-bold mb-4">
+        <h1 class="text-4xl dark:text-white text-neutral-20 font-bold mb-4">
           {name}
         </h1>
         <div
@@ -96,18 +95,21 @@ const html = marked.parse(content);
       </div>
 
       <section
-        class="flex flex-col w-full justify-center items-center p-2 rounded-sm">
+        class="flex flex-col w-full justify-center items-center rounded-sm gap-5">
         <article
-          class="w-3/5 flex-1 bg-white dark:bg-neutral flex flex-col gap-5 rounded-sm size-100">
-          <Image
-            src={poster.url}
-            alt={`Imagen proyecto ${name}`}
-            class="rounded-sm hover:shadow-xl hover:scale-102 dark:hover:shadow-secondary hover:shadow-neutral-20 transition-all duration-300 ease-in-out"
-            inferSize
-          />
+          class="w-90 h-auto md:w-4/5 border border-tertiary-20 dark:border-secondary shadow-xl hover:shadow-2xl shadow-tertiary-20 dark:shadow-secondary flex flex-col rounded-sm bg-white dark:bg-neutral">
+          <div class="">
+            <Image
+              src={poster.url}
+              alt={`Imagen proyecto ${name}`}
+              class="z-10 object-cover h-100 rounded-t-sm"
+              inferSize
+            />
+          </div>
+
           <div
             set:html={html}
-            class="p-5 prose text-tertiary-20 dark:text-white prose-strong:text-tertiary dark:prose-strong:text-secondary"
+            class="w-fit -mt-6 rounded-t-xl z-20 bg-white dark:bg-neutral prose-lg p-6 text-tertiary-20 dark:text-white prose-strong:text-tertiary dark:prose-strong:text-secondary"
           />
         </article>
       </section>
