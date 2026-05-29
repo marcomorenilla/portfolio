@@ -51,7 +51,7 @@ const html = marked.parse(content);
 
     <div class="flex justify-center">
       <section
-        class="grid grid-cols-1 md:grid-cols-2 gap-10 w-fit place-items-center min-h-0">
+        class="grid grid-cols-1 lg:grid-cols-2 gap-10 w-fit place-items-center min-h-0">
         <article
           class="p-4 bg-white dark:bg-neutral border rounded-sm shadow-xl dark:shadow-secondary shadow-tertiary-20 border-tertiary-20 w-full h-full">
           <div class="prose">
@@ -68,7 +68,7 @@ const html = marked.parse(content);
         <div
           class="flex flex-col gap-4 min-h-0 h-full justify-center items-center w-full">
           <article
-            class="flex w-full max-h-150 md:max-h-none flex-col flex-1 bg-white dark:bg-neutral border rounded-sm shadow-xl shadow-tertiary-20 dark:shadow-secondary border-tertiary-20">
+            class="flex w-full max-h-150 lg:max-h-none flex-col flex-1 bg-white dark:bg-neutral border rounded-sm shadow-xl shadow-tertiary-20 dark:shadow-secondary border-tertiary-20">
             <div class="prose">
               <h2
                 class="z-10 sticky p-4 top-0 bg-white dark:bg-neutral text-tertiary-20 dark:text-white m-0 border-b border-neutral-100 dark:border-neutral-800 shrink-0">
@@ -78,7 +78,7 @@ const html = marked.parse(content);
 
             <div class="overflow-y-auto not-prose p-4 flex-1 min-h-0">
               <section
-                class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 place-items-center">
+                class="grid grid-cols-2 md:grid-cols-4 gap-4 place-items-center">
                 {
                   skills.map((skill) => {
                     console.log("skill", skill);
