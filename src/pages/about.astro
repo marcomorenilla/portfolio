@@ -53,7 +53,7 @@ const html = marked.parse(content);
       <section
         class="grid grid-cols-1 md:grid-cols-2 gap-10 w-fit place-items-center min-h-0">
         <article
-          class="p-4 bg-white dark:bg-neutral border rounded-sm shadow shadow-tertiary-20 border-tertiary-20 w-full h-full">
+          class="p-4 bg-white dark:bg-neutral border rounded-sm shadow-xl dark:shadow-secondary shadow-tertiary-20 border-tertiary-20 w-full h-full">
           <div class="prose">
             <h2 class="text-tertiary-20 dark:text-white m-0 pb-4">
               ¿Quién soy?
@@ -61,14 +61,14 @@ const html = marked.parse(content);
           </div>
           <div
             set:html={html}
-            class="text-tertiary-20 font-semibold dark:text-white prose prose-strong:text-tertiary dark:prose-strong:text-secondary"
+            class="text-tertiary-20 dark:text-white prose prose-strong:text-tertiary dark:prose-strong:text-secondary"
           />
         </article>
 
         <div
           class="flex flex-col gap-4 min-h-0 h-full justify-center items-center w-full">
           <article
-            class="flex w-full max-h-150 flex-col flex-1 bg-white dark:bg-neutral border rounded-sm shadow shadow-tertiary-20 border-tertiary-20">
+            class="flex w-full max-h-150 flex-col flex-1 bg-white dark:bg-neutral border rounded-sm shadow-xl shadow-tertiary-20 dark:shadow-secondary border-tertiary-20">
             <div class="prose">
               <h2
                 class="z-10 sticky p-4 top-0 bg-white dark:bg-neutral text-tertiary-20 dark:text-white m-0 border-b border-neutral-100 dark:border-neutral-800 shrink-0">

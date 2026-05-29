@@ -74,7 +74,8 @@ const html = marked.parse(content);
 ---
 
 <Layout title={name}>
-  <main class="p-4 flex flex-col flex-1 items-stretch justify-start w-full">
+  <main
+    class="p-4 flex flex-col flex-1 items-stretch justify-start w-full mb-10">
     <article class="flex flex-col gap-10">
       <div>
         <h1 class="text-4xl dark:text-white text-neutral-20 font-bold mb-4">
@@ -95,9 +96,9 @@ const html = marked.parse(content);
       </div>
 
       <section
-        class="flex flex-col w-full justify-center items-center rounded-sm gap-5">
+        class="flex flex-col w-full justify-center items-center rounded-xl gap-5">
         <article
-          class="h-auto md:w-4/5 border-tertiary-20 dark:border-secondary shadow-xl hover:shadow-2xl shadow-tertiary-20 dark:shadow-secondary flex flex-col rounded-sm bg-white dark:bg-neutral">
+          class="h-auto md:w-4/5 border-tertiary-20 dark:border-secondary shadow-xl hover:shadow-2xl shadow-tertiary-20 dark:shadow-secondary flex flex-col rounded-xl bg-white dark:bg-neutral">
           <div class="">
             <Image
               src={poster.url}
@@ -109,7 +110,7 @@ const html = marked.parse(content);
 
           <div
             set:html={html}
-            class="w-fit -mt-6 rounded-t-xl z-20 bg-white shadow-[0px_-1px_15px_var(--color-tertiary-20)] dark:shadow-[0px_-1px_15px_var(--color-secondary)] dark:bg-neutral prose-lg p-6 text-tertiary-20 dark:text-white prose-strong:text-tertiary dark:prose-strong:text-secondary"
+            class="w-fit -mt-6 rounded-xl z-20 bg-white shadow-[0px_-1px_15px_var(--color-tertiary-20)] dark:shadow-[0px_-1px_15px_var(--color-secondary)] max-w-none dark:bg-neutral prose-base p-6 text-tertiary-20 dark:text-white prose-li:list-disc prose-a:underline prose-headings:font-bold prose-a:text-tertiary prose-strong:text-tertiary dark:prose-strong:text-secondary"
           />
         </article>
       </section>
