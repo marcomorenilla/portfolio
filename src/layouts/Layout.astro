@@ -11,10 +11,55 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+
     <meta name="generator" content={Astro.generator} />
+    <!-- SEO Estándar -->
     <title>{title}</title>
+    <meta
+      name="description"
+      content="Portfolio profesional de Marco Antonio Morenilla hecho con Astro e Hygraph"
+    />
+    <meta
+      name="keywords"
+      content="Marco Antonio Morenilla Alonso, desarrollo web, frontend, backend, portfolio, Astro, react, programador, mmorenilla"
+    />
+    <meta name="author" content="Marco Antonio Morenilla Alonso" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://dev.mmorenilla.com" />
+
+    <!-- Favicon (El logo de la pestaña <m/>) -->
+    <link rel="icon" type="image/png" href="/mmorenilla-logo.png" />
+
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dev.mmorenilla.com" />
+    <meta property="og:title" content="Marco Antonio Morenilla Alonso" />
+    <meta
+      property="og:description"
+      content="Portfolio profesional de Marco Antonio Morenilla hecho con Astro e Hygraph"
+    />
+    <meta
+      property="og:image"
+      content="https://dev.mmorenilla.com/mmorenilla-logo.png"
+    />
+    <meta
+      property="og:site_name"
+      content="Portfolio de Marco Antonio Morenilla"
+    />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://dev.mmorenilla.com" />
+    <meta name="twitter:title" content="Marco Antonio Morenilla Alonso" />
+    <meta
+      name="twitter:description"
+      content="Portfolio profesional de Marco Antonio Morenilla hecho con Astro e Hygraph"
+    />
+    <meta
+      name="twitter:image"
+      content="https://dev.mmorenilla.com/mmorenilla-logo.png"
+    />
     <ClientRouter />
   </head>
   <body
@@ -59,7 +104,6 @@ const { title } = Astro.props;
         });
       });
     </script>
-
   </body>
 </html>
 
