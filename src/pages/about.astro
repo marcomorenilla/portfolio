@@ -37,7 +37,6 @@ const { profiles }: ProfilesAbout = await client.request(`
 
 const { description, skills, aboutSentence } = profiles[0];
 const { content } = description;
-console.log("skills", skills);
 const html = marked.parse(content);
 ---
 
@@ -81,7 +80,6 @@ const html = marked.parse(content);
                 class="grid grid-cols-2 md:grid-cols-4 gap-4 place-items-center">
                 {
                   skills.map((skill) => {
-                    console.log("skill", skill);
                     return <IconCard skill={skill} />;
                   })
                 }
