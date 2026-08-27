@@ -96,7 +96,6 @@ import Layout from "../layouts/Layout.astro";
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         if ((data.status = "success")) {
           $openSuccessDialog();
           setTimeout(() => {
@@ -106,7 +105,6 @@ import Layout from "../layouts/Layout.astro";
       })
       .catch((error) => {
         const errorMsg = `Hubo un problema con el envío: ${error}`;
-        console.log(errorMsg);
         $openErrorDialog(errorMsg);
         setTimeout(() => {
           $closeDialog();
